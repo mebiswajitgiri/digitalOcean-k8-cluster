@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: user
+    env: practice
+    type: loadbalancer
+  name: user-svc
+  namespace: default
+spec:
+  ports:
+  - nodePort: 31515
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: user
+    env: prod
+    type: pod
+  type: LoadBalancer

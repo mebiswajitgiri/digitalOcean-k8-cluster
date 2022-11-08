@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: user
+    env: prod
+    type: deployment
+  name: user-deploy
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+      env: prod
+      type: pod
+  template:
+    metadata:
+      labels:
+        app: user
+        env: prod
+        type: pod
+      name: user-pod
+    spec:
+      containers:
+      - env:
+        - name: AUTH_ADDRESS
+          value: auth-svc.default.svc
+        image: biswajitgiri/user-app:latest
+        imagePullPolicy: Always
+        name: user

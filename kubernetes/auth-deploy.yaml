@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth
+    env: prod
+    kind: deploy
+  name: auth-deploy
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+      env: prod
+      kind: pod
+  template:
+    metadata:
+      labels:
+        app: auth
+        env: prod
+        kind: pod
+      name: auth-pod
+    spec:
+      containers:
+      - image: biswajitgiri/auth-app
+        imagePullPolicy: Always
+        name: auth
+      restartPolicy: Always

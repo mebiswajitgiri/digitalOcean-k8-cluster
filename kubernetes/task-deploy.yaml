@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: task
+    env: prod
+    type: deployment
+  name: task-deploy
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task
+      env: prod
+      type: pod
+  template:
+    metadata:
+      labels:
+        app: task
+        env: prod
+        type: pod
+      name: task-pod
+    spec:
+      containers:
+      - env:
+        - name: AUTH_ADDRESS
+          value: auth-svc.default.svc
+        - name: TASKS_FOLDER
+          value: tasks
+        image: biswajitgiri/task-app
+        name: task

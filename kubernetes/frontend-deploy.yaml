@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+    env: prod
+    type: deployment
+  name: frontend-deploy
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+      env: prod
+      type: pod
+  template:
+    metadata:
+      labels:
+        app: frontend
+        env: prod
+        type: pod
+      name: frontend-pod
+    spec:
+      containers:
+      - image: biswajitgiri/frontend-task-app
+        imagePullPolicy: Always
+        name: frontend
